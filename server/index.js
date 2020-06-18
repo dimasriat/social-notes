@@ -16,6 +16,21 @@ app.get("/", (req, res) => {
 	res.send("lapor bosq");
 });
 
+app.post("/login", (req, res) => {
+	db.query(
+		"select * from users where binary username=? and binary password=?",
+		[req.body.username, req.body.password],
+		(err, results) => {
+			if (err) throw err;
+			if (results.length > 0) {
+				return res.send({ msg: "sukses" });
+			} else {
+				return res.send({ msg: "gagal" });
+			}
+		}
+	);
+});
+
 app.get("/dbtest", (req, res) => {
 	db.query("select * from users limit 1", (err, results) => {
 		if (err) throw err;
