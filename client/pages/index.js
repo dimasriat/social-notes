@@ -2,7 +2,7 @@ export default function Home(props) {
 	return (
 		<div>
 			<h1>Hellooo cukkk</h1>
-			<p>{props.pesan}</p>
+			<p>{JSON.stringify(props.pesan)}</p>
 			<style jsx>{`
 				* {
 					font-family: sans-serif;
@@ -15,12 +15,20 @@ export default function Home(props) {
 	);
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+// 	const api = await fetch("http://localhost:8000/dbtest");
+// 	const pesan = JSON.stringify(await api.json());
+// 	return {
+// 		props: {
+// 			pesan,
+// 		},
+// 	};
+// }
+
+Home.getInitialProps = async ({ req }) => {
 	const api = await fetch("http://localhost:8000/dbtest");
-	const pesan = JSON.stringify(await api.json());
+	const pesan = await api.json();
 	return {
-		props: {
-			pesan,
-		},
+		pesan,
 	};
-}
+};
