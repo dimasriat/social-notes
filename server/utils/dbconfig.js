@@ -74,7 +74,7 @@ const db = mysql.createConnection({
 db.connect((err) => {
 	if (err) throw err;
 	console.log("connected!");
-	dropTablePosts(() => dropTableUsers(() => createTable(() => addAdmin())));
+	// dropTablePosts(() => dropTableUsers(() => createTable(() => addAdmin())));
 });
 
 module.exports = db;
