@@ -18,14 +18,15 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
 	db.query(
-		"select * from users where binary username=? and binary password=?",
+		"select * from users where binary username=? and binary password=? limit 1",
 		[req.body.username, req.body.password],
 		(err, results) => {
 			if (err) throw err;
 			if (results.length > 0) {
-				return res.send({ msg: "sukses" });
+				const data = results[0];
+				return res.send({ status: true, data });
 			} else {
-				return res.send({ msg: "gagal" });
+				return res.send({ status: false });
 			}
 		}
 	);
